@@ -13,3 +13,21 @@ def add_subject(user_id):
         print("Subject added successfully.")
     else:
         print("Failed to connect to database.")
+        
+
+def view_subjects(user_id):
+    conn = get_db_connection()
+    if conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * from subjects where user_id = %s", (user_id,))
+        subjects = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        
+        if subjects:
+            for subject in subjects:
+                print(f"{subject[0]}:{subject[2]}")
+        else:
+            print("No subjects found. ")
+    else:
+        print("Failed to connect to database")

@@ -1,4 +1,4 @@
-from src import register_user, login_user, add_subject
+from src import register_user, login_user, add_subject, view_subjects
 from InquirerPy import inquirer, get_style
 
 custom_style = get_style({
@@ -30,6 +30,7 @@ def handle_login():
 def user_dashboard(user_id):
     actions = {
         "Add Subject": lambda: add_subject(user_id),
+        "View Subjects": lambda: view_subjects(user_id),
         "Logout": logout_user,
     }
     while True:
