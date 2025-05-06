@@ -4,7 +4,8 @@
 
 ## 🚀 Features (Implemented & Planned)
 - ✅ **Register & login system via CLI** — User authentication with MySQL integration.
-- 🔜 **Add subjects and topics** — Organize learning content by subject.
+- ✅ Add subjects — Users can add subjects for organizing their learning content.
+- ✅ Add topics to subjects — Users can add topics to each subject.
 - 🔜 **Mark topics as completed** — Track and update learning progress.
 - 🔜 **Store progress in local files** — Save/load progress using CSV or text files.
 
@@ -22,8 +23,8 @@
 EduBase/
 ├── main.py                # Entry point
 ├── src/                   # Core logic
-│   ├── auth.py            # Register/Login functions
-│   └── ...                # Future modules (subject, tracker, etc.)
+│   ├── user.py            # Register/Login functions
+│   └── ...                # Future modules (subject, topic, etc.)
 ├── db/
 │   └── connection.py      # MySQL connection logic
 ├── .env                   # DB credentials
