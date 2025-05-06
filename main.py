@@ -1,4 +1,4 @@
-from src import register_user, login_user
+from src import register_user, login_user, add_subject
 from InquirerPy import inquirer, get_style
 
 custom_style = get_style({
@@ -8,21 +8,45 @@ custom_style = get_style({
 })
 
 def main_menu():
+    actions = {
+        "Register": register_user,
+        "Login": handle_login,
+        "Exit": exit_app,
+    }
     while True:
         choice = inquirer.select(
             message="Select an option:",
-            choices=["Register", "Login", "Exit"],
+            choices=list(actions.keys()),
             style=custom_style
         ).execute()
+        actions[choice]()
         
-        if choice == "Register":
-            register_user()
-        elif choice == "Login":
-            if login_user():
-                print("Welcome to EduBase Dashboard(under construction)")
-        elif choice == "Exit":
-            print("Exiting EduBase.")
-            break
+        
+def handle_login():
+    success, user_id = login_user()
+    if success:
+        user_dashboard(user_id)
+
+def user_dashboard(user_id):
+    actions = {
+        "Add Subject": lambda: add_subject(user_id),
+        "Logout": logout_user,
+    }
+    while True:
+        choice = inquirer.select(
+            message="Select an option:",
+            choices=list(actions.keys()),
+            style=custom_style
+        ).execute()
+        actions[choice]()
+    
+def exit_app():
+    print("Exiting EduBase. Goodbye!")
+    exit()
+    
+def logout_user():
+    print("Logging out...")
+    main_menu()
 
 
 if __name__ == "__main__":

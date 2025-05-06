@@ -32,7 +32,8 @@ def login_user():
         conn.close()
         if result:
             print("Login successful!")
-            return True
+            user_id = result[0]
+            return True, user_id
         else:
             print("Invalid credentials.")
             return False
