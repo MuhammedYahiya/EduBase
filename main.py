@@ -1,4 +1,4 @@
-from src import register_user, login_user, add_subject, view_subjects, add_topic, view_topics, mark_as_completed
+from src import register_user, login_user, add_subject, view_subjects, add_topic, view_topics, mark_as_completed, export_progress
 from InquirerPy import inquirer, get_style
 
 custom_style = get_style({
@@ -31,6 +31,7 @@ def user_dashboard(user_id):
     actions = {
         "Add Subject": lambda: add_subject(user_id),
         "View Subjects & Add topics": lambda: view_the_subjects(user_id),
+        "Export Progress": lambda:export_progress(user_id),
         "Logout": logout_user,
     }
     while True:
