@@ -1,4 +1,4 @@
-from src import register_user, login_user, add_subject, view_subjects, add_topic
+from src import register_user, login_user, add_subject, view_subjects, add_topic, view_topics, mark_as_completed
 from InquirerPy import inquirer, get_style
 
 custom_style = get_style({
@@ -30,7 +30,7 @@ def handle_login():
 def user_dashboard(user_id):
     actions = {
         "Add Subject": lambda: add_subject(user_id),
-        "View Subjects": lambda: view_the_subjects(user_id),
+        "View Subjects & Add topics": lambda: view_the_subjects(user_id),
         "Logout": logout_user,
     }
     while True:
@@ -50,20 +50,63 @@ def view_the_subjects(user_id):
     subject_map ={name: sub_id for sub_id, name in subjects}
     while True:
         choice = inquirer.select(
-            message="Select a subject to add a topic to:",
-            choices=list(subject_map.keys()) + ["Dashboard", "Logout"] ,
+            message="Select a subject to add a topic or view topics or mark topic as completed:",
+            choices=list(subject_map.keys()) + ["Dashboard"] ,
             style=custom_style,
         ).execute()
 
-        if choice == "Logout":
-            login_user()
-            break
-        elif choice == "Dashboard":
+
+        if choice == "Dashboard":
             user_dashboard(user_id)
-            break
         
         selected_subject_id = subject_map[choice]
-        add_topic(selected_subject_id)
+        subject_action_menu(selected_subject_id, user_id)
+        
+
+def subject_action_menu(subject_id,user_id):
+    action={
+        "Add Topic": lambda:add_topic(subject_id),
+        "Mark Topic as Completed": lambda:mark_topic_in_subject(subject_id),
+        "View Topics": lambda:print_topics(subject_id),
+        "Back to Subjects": lambda:view_the_subjects(user_id)
+    }
+    while True:
+        choice = inquirer.select(
+            message="Choose an action for this subject:",
+            choices=["Add Topic", "Mark Topic as Completed", "View Topics", "Back to Subjects"],
+            style=custom_style
+        ).execute()
+        
+        action[choice]()
+        
+def print_topics(subject_id):
+    topics = view_topics(subject_id)
+    if topics:
+        print("\nTopics:")
+        for _, name, completed in topics:
+            status = "✅" if completed else "❌"
+            print(f" - {name} [{status}]")
+    else:
+        print("No topics found.")
+        
+    input("\nPress Enter to return to the menu...")
+    
+def mark_topic_in_subject(subject_id):
+    topics = view_topics(subject_id)
+    if not topics:
+        print("No topics available")
+        return
+    topic_map = {name: topic_id for topic_id, name, _ in topics}
+    topic_names = list(topic_map.keys()) + ["Cancel"]
+    
+    selected = inquirer.select(
+        message="Select a topic to mark as completed:",
+        choices=topic_names,
+        style=custom_style
+    ).execute()
+    
+    if selected != "Cancel":
+        mark_as_completed(topic_map[selected])
     
     
 def exit_app():
