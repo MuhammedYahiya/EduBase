@@ -45,7 +45,7 @@ EduBase/
 ├── .env # Environment variables (DB credentials)
 ├── .gitignore # Ignoring reports, credentials, etc.
 └── README.md # Project overview
-
+```
 ---
 
 ## 💡 How to Use
