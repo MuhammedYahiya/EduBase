@@ -1,4 +1,4 @@
-from src import User, add_subject, view_subjects, add_topic, view_topics, mark_as_completed, export_progress
+from src import User, Subject, add_topic, view_topics, mark_as_completed, export_progress
 from InquirerPy import inquirer, get_style
 
 custom_style = get_style({
@@ -37,7 +37,7 @@ def handle_login():
 def user_dashboard(user_id):
     actions = {
         "Add Subject": lambda: add_subject(user_id),
-        "View Subjects & Add topics": lambda: view_the_subjects(user_id),
+        "View Subjects & Add topics": lambda: view_subjects(user_id),
         "Export Progress": lambda:export_progress(user_id),
         "Logout": logout_user,
     }
@@ -49,11 +49,17 @@ def user_dashboard(user_id):
         ).execute()
         actions[choice]()
         
-def view_the_subjects(user_id):
-    subjects = view_subjects(user_id)
+def add_subject(user_id):
+    subject = Subject(user_id=user_id)
+    subject.add_subject()
+        
+def view_subjects(user_id):
+    subject = Subject(user_id=user_id)
+    subjects = subject.view_subjects()
     if not subjects:
-        print("No subject found. Please add a subject first.")
+        print("No subjects found. Please add a subject first.")
         return
+
         
     subject_map ={name: sub_id for sub_id, name in subjects}
     while True:
@@ -76,7 +82,7 @@ def subject_action_menu(subject_id,user_id):
         "Add Topic": lambda:add_topic(subject_id),
         "Mark Topic as Completed": lambda:mark_topic_in_subject(subject_id),
         "View Topics": lambda:print_topics(subject_id),
-        "Back to Subjects": lambda:view_the_subjects(user_id)
+        "Back to Subjects": lambda:view_subjects(user_id)
     }
     while True:
         choice = inquirer.select(

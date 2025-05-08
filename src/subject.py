@@ -1,39 +1,55 @@
 from db import get_db_connection
 from InquirerPy import inquirer
 
-def add_subject(user_id):
-    subject_name = inquirer.text(message="Enter subject name:").execute()
-    conn = get_db_connection()
-    if conn:
-        cursor = conn.cursor()
-        cursor.execute("INSERT INTO subjects (user_id, name) VALUES (%s, %s)",(user_id, subject_name))
-        conn.commit()
-        cursor.close()
-        conn.close()
-        print("Subject added successfully.")
-    else:
-        print("Failed to connect to database.")
+class Subject:
+    def __init__(self, subject_name=None, subject_id=None, user_id=None):
+        self.subject_name = subject_name
+        self.subject_id = subject_id
+        self.user_id = user_id
+        
+    def add_subject(self):
+        self.subject_name = inquirer.text(message="Enter subject name:").execute()
+        conn = get_db_connection()
+        if not conn:
+            print("Failed to connect to database")
+            return False
+        try:
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO subjects (user_id, name) VALUES (%s, %s)",(self.user_id, self.subject_name))
+            conn.commit()
+            print("Subject added successfully")
+            return True
+        except Exception as e:
+            print(f"Error while adding subject {e}")
+            return False
+        finally:
+            cursor.close()
+            conn.close()
+
+    def view_subjects(self):
+        conn = get_db_connection()
+        subject_data = []
+        if not conn:
+            print("Failed to connect the database")
+            return []
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT id, name from subjects WHERE user_id = %s", (self.user_id,))
+            subjects = cursor.fetchall()
+            if not subjects:
+                print("No subject found.")
+                return []
+            for sub in subjects:
+                subject_data.append([sub[0],sub[1]])
+        except Exception as e:
+            print("Error retrieving subjects: {e}")
+            return []
+        finally:
+            cursor.close()
+            conn.close()
+        
+        return subject_data
         
 
-def view_subjects(user_id):
-    conn = get_db_connection()
-    subject_data = []
-    if not conn:
-        print("Failed to Connect to the database")
-        return None
-    
-    try:
-        cursor = conn.cursor()
-        cursor.execute("SELECT * from subjects where user_id = %s", (user_id,))
-        subjects = cursor.fetchall()
-        for subject in subjects:
-            subject_data.append((subject[0], subject[2]))
-    except Exception as e:
-        print(f"Error retrieving subjects: {e}")
-    finally:
-        cursor.close()
-        conn.close()
-        
-    return subject_data
-    
+
     
