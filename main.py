@@ -1,4 +1,4 @@
-from src import User, Subject, Topic, export_progress
+from src import User, Subject, Topic, ProgressManager
 from InquirerPy import inquirer, get_style
 
 custom_style = get_style({
@@ -130,6 +130,10 @@ def marked_as_completed(subject_id):
     if selected != "Cancel":
         topic = Topic(topic_id=topic_map[selected])
         topic.marked_as_completed()
+        
+def export_progress(user_id):
+    export = ProgressManager(user_id)
+    export.export_progress()
     
     
 def exit_app():
