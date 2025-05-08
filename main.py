@@ -38,6 +38,7 @@ def user_dashboard(user_id):
     actions = {
         "Add Subject": lambda: add_subject(user_id),
         "View Subjects & Add topics": lambda: view_subjects(user_id),
+        "Search subjects": lambda: search_subjects(user_id),
         "Export Progress": lambda:export_progress(user_id),
         "Logout": logout_user,
     }
@@ -75,6 +76,10 @@ def view_subjects(user_id):
         
         selected_subject_id = subject_map[choice]
         subject_action_menu(selected_subject_id, user_id)
+
+def search_subjects(user_id):
+    subject = Subject(user_id=user_id)
+    subject.search_subject()
         
 
 def subject_action_menu(subject_id,user_id):

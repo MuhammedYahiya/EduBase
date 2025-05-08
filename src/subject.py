@@ -50,6 +50,31 @@ class Subject:
         
         return subject_data
         
-
-
-    
+    def search_subject(self):
+        conn = get_db_connection()
+        if not conn:
+            print("Failed to connect the database")
+            return []
+        sub_name = inquirer.text("Please enter the subject name for search:").execute()
+        
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT id, name FROM subjects WHERE user_id=%s",(self.user_id,))
+            subjects = cursor.fetchall()
+            if not subjects:
+                print("No Subject Found")
+                return []
+            
+            found = False
+            for sub in subjects:
+                if sub_name == sub[1]:
+                    print(f"{sub_name} is inside the list")
+                    break
+                
+            if not found:
+                print(f"{sub_name} is not in the list")
+        except Exception as e:
+            print("Error searching subjects: {e}")
+        finally:
+            cursor.close()
+            conn.close()
