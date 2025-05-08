@@ -1,4 +1,4 @@
-from src import register_user, login_user, add_subject, view_subjects, add_topic, view_topics, mark_as_completed, export_progress
+from src import User, add_subject, view_subjects, add_topic, view_topics, mark_as_completed, export_progress
 from InquirerPy import inquirer, get_style
 
 custom_style = get_style({
@@ -22,10 +22,17 @@ def main_menu():
         actions[choice]()
         
         
+def register_user():
+    user = User()
+    user.register()
+
 def handle_login():
-    success, user_id = login_user()
+    user = User()
+    success = user.login()
     if success:
-        user_dashboard(user_id)
+        user_dashboard(user.user_id)
+    else:
+        print("Login failed. Please try again.")
 
 def user_dashboard(user_id):
     actions = {
