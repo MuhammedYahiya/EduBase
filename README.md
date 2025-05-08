@@ -10,12 +10,19 @@
 - 📝 **Add topics** under each subject  
 - ✅ **Mark topics as completed** to track progress  
 - 📁 **Export progress** to CSV (`Reports/`) with subject, topic, and status  
+- 🔧 Modular OOP structure using Python classes (User, Subject, Topic, ProgressManager)
+- ⚙️ MySQL Integration for persistent storage
+- 📂 Organized project structure with clean separation of concerns
+- 🛑 Error handling and validations for DB and input operations
 
 🧠 Upcoming (Planned):
 
 - 📊 Analytics and summaries of learning progress  
 - 📈 Graphs using `matplotlib` or `pandas`  
-- 📅 Scheduling or reminders  
+- 🔄 Topic dependency system (e.g., "Learn A before B") 
+- ⏳ Queue system for pending topics
+- 🌳 Tree/nested hierarchy for subjects (if applicable)
+- 📅 Scheduling/reminders via CLI
 - ☁️ Export to cloud storage or sync with GitHub  
 
 ---
@@ -52,6 +59,12 @@ EduBase/
 
 1. Clone the repo  
 2. Set up your MySQL and `.env` file  
+```bash
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=yourpassword
+DB_NAME=edubase
+```
 3. Run `python main.py`  
 4. Navigate through the CLI to register, add subjects/topics, and track progress  
 
@@ -71,10 +84,21 @@ Saved to: `Reports/user_<user_id>_progress.csv`
 
 ---
 
-## ✅ Progress
+## ✅ Phase Progress
 
-You're currently in **Phase 1: Core CLI & MySQL Integration**, with partial parallel progress on **Phase 4: Analytics-ready SQL Structure**.
+| Phase     | Description                               | Status                                        |
+|-----------|-------------------------------------------|-----------------------------------------------|
+| Phase 1   | CLI System + CSV logic                    | ✅ Completed                                  |
+| Phase 2   | OOP + Modular Python                      | ✅ Completed                                  |
+| Phase 3   | Data Structures/Algorithms                | 🔜 Upcoming                                   |
+| Phase 4   | MySQL Integration                         | 🟡 Partially Done (Basic CRUD & schema ready) |
+| Phase 5   | Advanced Python (argparse, decorators)    | 🔜 Upcoming                                   |
+| Phase 6   | Analytics (pandas, performance analysis)  | 🔜 Upcoming                                   |
+| Phase 7   | Role-Based Access (Admin/User)            | 🔜 Upcoming                                   |
+
 
 ---
 
-Feel free to suggest or contribute new features!
+## 🤝 Contributions
+- Feel free to suggest new features or improvements!
+- Pull requests and forks are welcome.
