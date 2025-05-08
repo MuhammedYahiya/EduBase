@@ -1,4 +1,4 @@
-from src import User, Subject, add_topic, view_topics, mark_as_completed, export_progress
+from src import User, Subject, Topic, export_progress
 from InquirerPy import inquirer, get_style
 
 custom_style = get_style({
@@ -80,8 +80,8 @@ def view_subjects(user_id):
 def subject_action_menu(subject_id,user_id):
     action={
         "Add Topic": lambda:add_topic(subject_id),
-        "Mark Topic as Completed": lambda:mark_topic_in_subject(subject_id),
-        "View Topics": lambda:print_topics(subject_id),
+        "Mark Topic as Completed": lambda:marked_as_completed(subject_id),
+        "View Topics": lambda:view_topics(subject_id),
         "Back to Subjects": lambda:view_subjects(user_id)
     }
     while True:
@@ -93,8 +93,13 @@ def subject_action_menu(subject_id,user_id):
         
         action[choice]()
         
-def print_topics(subject_id):
-    topics = view_topics(subject_id)
+def add_topic(subject_id):
+    topic = Topic(subject_id=subject_id)
+    topic.add_topic()
+        
+def view_topics(subject_id):
+    topic = Topic(subject_id=subject_id)
+    topics = topic.view_topics()
     if topics:
         print("\nTopics:")
         for _, name, completed in topics:
@@ -105,10 +110,13 @@ def print_topics(subject_id):
         
     input("\nPress Enter to return to the menu...")
     
-def mark_topic_in_subject(subject_id):
-    topics = view_topics(subject_id)
+    return topics
+    
+def marked_as_completed(subject_id):
+    topic = Topic(subject_id=subject_id)
+    topics = topic.view_topics()
     if not topics:
-        print("No topics available")
+        print("No topics available.")
         return
     topic_map = {name: topic_id for topic_id, name, _ in topics}
     topic_names = list(topic_map.keys()) + ["Cancel"]
@@ -120,7 +128,8 @@ def mark_topic_in_subject(subject_id):
     ).execute()
     
     if selected != "Cancel":
-        mark_as_completed(topic_map[selected])
+        topic = Topic(topic_id=topic_map[selected])
+        topic.marked_as_completed()
     
     
 def exit_app():
