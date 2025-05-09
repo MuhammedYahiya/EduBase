@@ -10,6 +10,7 @@
 - 📝 **Add topics** under each subject  
 - ✅ **Mark topics as completed** to track progress  
 - 📁 **Export progress** to CSV (`Reports/`) with subject, topic, and status  
+- 🔍 Subject & topic search (case-insensitive, partial matching)
 - 🔧 Modular OOP structure using Python classes (User, Subject, Topic, ProgressManager)
 - ⚙️ MySQL Integration for persistent storage
 - 📂 Organized project structure with clean separation of concerns
@@ -55,6 +56,14 @@ EduBase/
 ```
 ---
 
+## 🔍 Search Features
+- ✅ Case-insensitive subject & topic search
+- ✅ Partial match support (e.g., typing phy finds Physics)
+- ✅ Result highlighting with status display (✅ Completed / ❌ Incomplete)
+- ✅ Returns match count and handles no matches gracefully
+
+
+---
 ## 💡 How to Use
 
 1. Clone the repo  
@@ -90,7 +99,7 @@ Saved to: `Reports/user_<user_id>_progress.csv`
 |-----------|-------------------------------------------|-----------------------------------------------|
 | Phase 1   | CLI System + CSV logic                    | ✅ Completed                                  |
 | Phase 2   | OOP + Modular Python                      | ✅ Completed                                  |
-| Phase 3   | Data Structures/Algorithms                | 🔜 Upcoming                                   |
+| Phase 3   | Data Structures/Algorithms                | 🟡 In Progress (Linear search done)           |
 | Phase 4   | MySQL Integration                         | 🟡 Partially Done (Basic CRUD & schema ready) |
 | Phase 5   | Advanced Python (argparse, decorators)    | 🔜 Upcoming                                   |
 | Phase 6   | Analytics (pandas, performance analysis)  | 🔜 Upcoming                                   |
