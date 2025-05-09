@@ -65,15 +65,14 @@ class Subject:
                 print("No Subject Found")
                 return []
             
-            found = False
+            matched_subjects = []
+            
             for sub in subjects:
-                if sub_name.lower() == sub[1].lower():
-                    print(f"{sub_name} is inside the list")
-                    found = True
-                    break
-                
-            if not found:
-                print(f"{sub_name} is not in the list")
+                if sub_name.lower() in sub[1].lower():
+                    matched_subjects.append(sub[1])
+                    
+            return matched_subjects
+    
         except Exception as e:
             print("Error searching subjects: {e}")
         finally:

@@ -79,8 +79,16 @@ def view_subjects(user_id):
 
 def search_subjects(user_id):
     subject = Subject(user_id=user_id)
-    subject.search_subject()
-        
+    subjects = subject.search_subject()
+    if len(subjects) > 0:
+        print(f"{len(subjects)} subjects matched your search")
+        for sub in subjects:
+            print(sub)
+            
+    else:
+        print("No search result found")
+        return
+    return
 
 def subject_action_menu(subject_id,user_id):
     action={
