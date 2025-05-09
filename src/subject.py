@@ -67,8 +67,9 @@ class Subject:
             
             found = False
             for sub in subjects:
-                if sub_name == sub[1]:
+                if sub_name.lower() == sub[1].lower():
                     print(f"{sub_name} is inside the list")
+                    found = True
                     break
                 
             if not found:
