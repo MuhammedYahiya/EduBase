@@ -72,3 +72,28 @@ class Topic:
             cursor.close()
             conn.close()
         
+    def search_topics(self):
+        conn = get_db_connection()
+        if not conn:
+            print("Failed to connect the db")
+            return[]
+        
+        topic_name = inquirer.text(message="Enter the topic you needed to search:").execute()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT name, completed from topics WHERE subject_id=%s", (self.subject_id,))
+            topics = [{"name":topic[0],"completed":topic[1]} for topic in cursor.fetchall()]
+            matched_topics = []
+        
+            for topic in topics:
+                if topic_name.lower() in topic["name"].lower():
+                    matched_topics.append(topic)
+                
+            return matched_topics
+        except Exception as e:
+            print(f"Error while searching topics {e}")
+            return[]
+        finally:
+            cursor.close()
+            conn.close()
+     
