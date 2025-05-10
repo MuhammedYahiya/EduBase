@@ -11,6 +11,8 @@
 - ✅ **Mark topics as completed** to track progress  
 - 📁 **Export progress** to CSV (`Reports/`) with subject, topic, and status  
 - 🔍 Subject & topic search (case-insensitive, partial matching)
+- 🔃 **Sort subjects** alphabetically (A-Z, Z-A)
+- 🔃 **Sort topics** by name (A-Z, Z-A) or by completion status (Completed/Incomplete)
 - 🔧 Modular OOP structure using Python classes (User, Subject, Topic, ProgressManager)
 - ⚙️ MySQL Integration for persistent storage
 - 📂 Organized project structure with clean separation of concerns
@@ -56,11 +58,14 @@ EduBase/
 ```
 ---
 
-## 🔍 Search Features
+## 🔍 Search Features & Sort Features
 - ✅ Case-insensitive subject & topic search
 - ✅ Partial match support (e.g., typing phy finds Physics)
-- ✅ Result highlighting with status display (✅ Completed / ❌ Incomplete)
-- ✅ Returns match count and handles no matches gracefully
+- ✅ Sort subjects: Alphabetical A-Z or Z-A
+- ✅ Sort topics:
+    - Alphabetically (A-Z / Z-A)
+    - By completion status (Completed / Incomplete)
+- ✅ Results include match count and completion status (✅ / ❌)
 
 
 ---
@@ -99,7 +104,7 @@ Saved to: `Reports/user_<user_id>_progress.csv`
 |-----------|-------------------------------------------|-----------------------------------------------|
 | Phase 1   | CLI System + CSV logic                    | ✅ Completed                                  |
 | Phase 2   | OOP + Modular Python                      | ✅ Completed                                  |
-| Phase 3   | Data Structures/Algorithms                | 🟡 In Progress (Linear search done)           |
+| Phase 3   | Data Structures/Algorithms                | 🟡 In Progress (search and sort implemented)  |
 | Phase 4   | MySQL Integration                         | 🟡 Partially Done (Basic CRUD & schema ready) |
 | Phase 5   | Advanced Python (argparse, decorators)    | 🔜 Upcoming                                   |
 | Phase 6   | Analytics (pandas, performance analysis)  | 🔜 Upcoming                                   |
