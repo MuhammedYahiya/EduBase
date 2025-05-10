@@ -119,6 +119,7 @@ def subject_action_menu(subject_id,user_id):
         "Mark Topic as Completed": lambda:marked_as_completed(subject_id),
         "View Topics": lambda:view_topics(subject_id),
         "Search Topics": lambda:search_topic(subject_id),
+        "Sort Topics": lambda:sort_topic(subject_id),
         "Back to Subjects": lambda:view_subjects(user_id)
     }
     while True:
@@ -162,7 +163,21 @@ def search_topic(subject_id):
         return
     return
         
+def sort_topic(subject_id):
+    topic = Topic(subject_id=subject_id)    
+    choice = inquirer.select(
+        message="select how u needed to sort",
+        choices=['A-Z','Z-A','Completed','Not Completed'],
+        style=custom_style
+    ).execute()
     
+    topics = topic.sort_topic(choice)
+    for top in topics:
+        status = "✅ Completed" if top["completed"] else "❌ Incomplete"
+        print(f'{top["name"]}: {status}')
+    
+    return
+        
 def marked_as_completed(subject_id):
     topic = Topic(subject_id=subject_id)
     topics = topic.view_topics()

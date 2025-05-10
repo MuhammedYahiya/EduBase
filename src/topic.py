@@ -97,3 +97,35 @@ class Topic:
             cursor.close()
             conn.close()
      
+    def sort_topic(self,choice=None):
+        conn = get_db_connection()
+        if not conn:
+            print("Failed to connect the db")
+            return []
+        
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT name, completed FROM topics where subject_id = %s",(self.subject_id,))
+            topics = [{"name":topic[0],"completed":topic[1]} for topic in cursor.fetchall()]
+            if not topics:
+                print("No topic found.")
+                return []
+            if choice == 'A-Z':
+                topics.sort(key=lambda x: x["name"].lower())
+                return topics
+            elif choice == 'Z-A':
+                topics.sort(key=lambda x:x["name"].lower(),reverse=True)
+                return topics
+            elif choice == "Completed":
+                topics.sort(key=lambda x:x["completed"],reverse=True)
+                return topics
+            elif choice == "Not Completed":
+                topics.sort(key=lambda x:x["completed"])
+                return topics
+            
+        except Exception as e:
+            print(f"Error while doing sorting {e}")
+            return[]
+        finally:
+            cursor.close()
+            conn.close()
