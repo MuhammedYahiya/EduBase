@@ -78,3 +78,31 @@ class Subject:
         finally:
             cursor.close()
             conn.close()
+            
+    def sort_subject(self, choice=None):
+        conn = get_db_connection()
+        if not conn:
+            print("Failed to connect the db")
+        
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT name FROM subjects WHERE user_id = %s",(self.user_id,))
+            subjects = [sub[0] for sub in cursor.fetchall()]
+            if not subjects:
+                print("No subjects found")
+                return[]
+            
+            if choice == 'A-Z':
+                subjects.sort(key=lambda x: x.lower())
+                return subjects
+            elif choice == 'Z-A':
+                subjects.sort(reverse=True, key=lambda x: x.lower())
+                return subjects
+            
+        except Exception as e:
+            print(f"Error while sorting subjects: {e}")
+            return[]
+        finally:
+            cursor.close()
+            conn.close()
+            

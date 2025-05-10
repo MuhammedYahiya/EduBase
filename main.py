@@ -39,6 +39,7 @@ def user_dashboard(user_id):
         "Add Subject": lambda: add_subject(user_id),
         "View Subjects & Add topics": lambda: view_subjects(user_id),
         "Search subjects": lambda: search_subjects(user_id),
+        "Sort subjects": lambda: sort_subjects(user_id),
         "Export Progress": lambda:export_progress(user_id),
         "Logout": logout_user,
     }
@@ -90,6 +91,28 @@ def search_subjects(user_id):
         return
     return
 
+def sort_subjects(user_id):
+    subject = Subject(user_id=user_id)
+    choice = inquirer.select(
+        message="Selected how you needed to sorted",
+        choices=['A-Z','Z-A'],
+        style=custom_style
+    ).execute()
+    
+    if choice == 'A-Z':
+        subjects = subject.sort_subject(choice)
+        
+        for sub in subjects:
+            print(sub)
+            
+        return
+    elif choice == 'Z-A':
+        subjects = subject.sort_subject(choice)
+        for sub in subjects:
+            print(sub)
+        return
+            
+    
 def subject_action_menu(subject_id,user_id):
     action={
         "Add Topic": lambda:add_topic(subject_id),
