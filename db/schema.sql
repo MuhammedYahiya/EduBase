@@ -23,4 +23,15 @@ CREATE TABLE IF NOT EXISTS topics (
     completed BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE CASCADE
-)
+);
+
+CREATE TABLE IF NOT EXISTS topic_dependencies (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  topic_id INT,
+  depends_on_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (topic_id) REFERENCES topics(id) ON DELETE CASCADE,
+  FOREIGN KEY (depends_on_id) REFERENCES topics(id) ON DELETE CASCADE,
+  UNIQUE KEY (topic_id, depends_on_id)
+);
+
