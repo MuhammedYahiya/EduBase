@@ -51,6 +51,7 @@ EduBase/
 │ └── report.py # Export progress to CSV
 ├── db/
 │ └── connection.py # MySQL DB connection
+| └── schema.sql
 ├── Reports/ # Folder for exported CSV reports
 ├── .env # Environment variables (DB credentials)
 ├── .gitignore # Ignoring reports, credentials, etc.
