@@ -1,0 +1,6 @@
+.venv
+legacy_cli/.venv/
+legacy_cli/.env
+legacy_cli/db/__pycache__
+legacy_cli/src/__pycache__
+legacy_cli/Reports
